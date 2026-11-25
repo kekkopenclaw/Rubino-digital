@@ -1,0 +1,17 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+# Angular / Node
+node_modules/
+dist/
+# Generated Angular build served by the API — rebuilt on publish, do not commit
+backend/wwwroot/
+# Local data (SQLite) — never commit real customer data
+*.db
+*.db-shm
+*.db-wal
+# Env / secrets
+.env
+appsettings.Production.json
