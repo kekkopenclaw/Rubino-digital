@@ -1,0 +1,35 @@
+# Render Free web service — one container, API + Angular together.
+# Free tier: 750 hours/month, 512 MB RAM, spins down after 15 min inactivity.
+services:
+  - type: web
+    name: rubino-digital
+    env: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: Jwt__Key
+        generateValue: true
+      - key: Jwt__Issuer
+        value: RubinoDigital.Api
+      # --- Stripe (TEST MODE STUB by default — no live keys) ---
+      - key: Stripe__SecretKey
+        sync: false
+      - key: Stripe__PublishableKey
+        sync: false
+      # --- Email (Log = no real emails; Resend/SendGrid free 100/day) ---
+      - key: Email__Provider
+        value: Log
+      - key: Email__ApiKey
+        sync: false
+      - key: Email__From
+        value: hello@rubinodigital.example
+      # --- Enquiry inbox: blank by default — set your business email here ---
+      - key: Agency__Email
+        sync: false
+      # SQLite file lives in the container. Free Render has no persistent
+      # disk, so data resets on redeploy — fine for a demo, not for real
+      # customers. Add a persistent disk (paid) or a free Postgres add-on
+      # and switch the connection string before real use.
